@@ -5,9 +5,14 @@ import cvData from '@/data/cv-data.json';
 /* ═══════════════════════════════════════════════════════
    SECURITY: API Key — loaded from environment only
    ═══════════════════════════════════════════════════════ */
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
-});
+// Groq client — initialized lazily to ensure env vars are available at runtime
+function getGroqClient() {
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+        throw new Error('GROQ_API_KEY environment variable is not set');
+    }
+    return new Groq({ apiKey });
+}
 
 /* ═══════════════════════════════════════════════════════
    SECURITY: Rate Limiter — per-IP request throttling
@@ -254,6 +259,7 @@ export async function POST(req: NextRequest) {
         }
 
         // ── Call Groq ──
+        const groq = getGroqClient();
         const chatCompletion = await groq.chat.completions.create({
             model: 'llama-3.3-70b-versatile',
             messages: [
@@ -284,10 +290,18 @@ export async function POST(req: NextRequest) {
 
         return secureHeaders(NextResponse.json({ content: raw }));
     } catch (error) {
-        console.error('Groq API error:', error);
+        const errMsg = error instanceof Error ? error.message : String(error);
+        console.error('Groq API error:', errMsg);
+
+        // Return diagnostic info in development, generic message in production
+        const isEnvMissing = errMsg.includes('environment variable');
+        const content = isEnvMissing
+            ? 'API key not configured. Please add GROQ_API_KEY to environment variables.'
+            : 'Signal disrupted — data relay offline. Try again.';
+
         return secureHeaders(NextResponse.json(
-            { content: 'Signal disrupted — data relay offline. Try again.' },
-            { status: 500 }
+            { content, debug: errMsg },
+            { status: isEnvMissing ? 503 : 500 }
         ));
     }
 }
