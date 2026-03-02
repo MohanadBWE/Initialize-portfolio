@@ -101,7 +101,7 @@ export function AiProvider({ children }: { children: React.ReactNode }) {
 
             if (!res.ok) {
                 const errorData = await res.json().catch(() => null);
-                const apiMsg = errorData?.content || 'Signal disrupted — data relay offline.';
+                const apiMsg = errorData?.debug || errorData?.content || 'Signal disrupted — data relay offline.';
                 throw new Error(apiMsg);
             }
             const data = await res.json();
