@@ -99,7 +99,11 @@ export function AiProvider({ children }: { children: React.ReactNode }) {
                 new Promise(resolve => setTimeout(resolve, MIN_VIZ_MS)),
             ]);
 
-            if (!res.ok) throw new Error('API error');
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => null);
+                const apiMsg = errorData?.content || 'Signal disrupted — data relay offline.';
+                throw new Error(apiMsg);
+            }
             const data = await res.json();
             const reply = data.content || 'Signal lost... please try again.';
 
@@ -117,14 +121,16 @@ export function AiProvider({ children }: { children: React.ReactNode }) {
             showHolo(reply);
 
             return data.navigateTo || reply;
-        } catch {
+        } catch (err) {
             // Even on error, wait for the visualization to finish
             const elapsed = Date.now() - vizStart;
             if (elapsed < MIN_VIZ_MS) {
                 await new Promise(resolve => setTimeout(resolve, MIN_VIZ_MS - elapsed));
             }
 
-            const fallback = "Interference detected — I can't reach the data relay right now. Try again in a moment!";
+            const fallback = err instanceof Error && err.message !== 'API error'
+                ? err.message
+                : "Interference detected — I can't reach the data relay right now. Try again in a moment!";
             setMessages(prev => [...prev, { role: 'assistant', content: fallback, timestamp: Date.now() }]);
             showHolo(fallback);
             return fallback;
