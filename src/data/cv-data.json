@@ -1,0 +1,99 @@
+{
+    "name": "Mohanad Mala",
+    "title": "Data Engineer",
+    "tagline": "Engineering data pipelines that transform chaos into clarity.",
+    "email": "info@mohanad-mala.online",
+    "phones": [
+        "+964 (0)750-351-9337",
+        "+964 (0)787-051-9337"
+    ],
+    "location": "Duhok, Iraq",
+    "experience": [
+        {
+            "id": "ml",
+            "year": "2024–Present",
+            "role": "ML & Intelligent Systems Engineer",
+            "company": "Freelance / Independent",
+            "details": [
+                "2 years building and deploying ML models for real-world applications",
+                "Designed intelligent systems for data-driven decision making",
+                "Experience with classification, regression, NLP, and predictive analytics"
+            ]
+        },
+        {
+            "id": "vibe",
+            "year": "2024–Present",
+            "role": "Vibe Coding Specialist",
+            "company": "Freelance / Independent",
+            "details": [
+                "2 years of expertise in AI-assisted development (vibe coding)",
+                "Rapid prototyping and full-stack app creation using AI tools",
+                "Built production-grade web apps, dashboards, and interactive 3D experiences"
+            ]
+        },
+        {
+            "id": "ntu",
+            "year": "2024",
+            "role": "Data Systems Supervisor",
+            "company": "Northern Technical University",
+            "details": [
+                "Supervised HEPIQ unit leading 17 academic staff",
+                "Managed 6000+ student records across 260 subjects",
+                "Automated certification workflows saving 6+ hours/day"
+            ]
+        },
+        {
+            "id": "yakdar",
+            "year": "2024",
+            "role": "Data Engineer",
+            "company": "YakDar NGO",
+            "details": [
+                "Managed 20k+ environmental data points",
+                "Built robust field operation reporting systems",
+                "Pipeline design for tree planting data"
+            ]
+        },
+        {
+            "id": "sulav",
+            "year": "2023",
+            "role": "Production Manager",
+            "company": "Sulav Poultry",
+            "details": [
+                "Directed 120+ workers & 20k daily units",
+                "Optimized yield via raw material analysis",
+                "Enforced QC protocols & automated daily reports"
+            ]
+        },
+        {
+            "id": "uod",
+            "year": "2021",
+            "role": "Top Graduate",
+            "company": "University of Duhok",
+            "details": [
+                "Rank #1 in College of Agricultural Engineering",
+                "Specialized in biological systems engineering",
+                "Foundation in data analysis & research"
+            ]
+        }
+    ],
+    "skills": [
+        "Python",
+        "SQL",
+        "Machine Learning",
+        "Scikit-learn",
+        "TensorFlow",
+        "NLP",
+        "Vibe Coding",
+        "AI-Assisted Development",
+        "Airflow",
+        "dbt",
+        "Pandas",
+        "Spark",
+        "AWS",
+        "Docker",
+        "PostgreSQL",
+        "Redis",
+        "Odoo",
+        "Bash"
+    ]
+}
